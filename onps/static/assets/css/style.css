@@ -261,7 +261,7 @@ h6 {
   box-shadow: none;
 }
 .btn .btn-dark{
-  background: #0a53be;
+  background: #0a53be !important;
 }
 /* Accordion */
 .accordion-item {

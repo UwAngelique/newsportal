@@ -1,6 +1,13 @@
 {% extends 'base1.html' %}
 {% block content %}
 {% load static %}
+<style>
+    .btn btn-dark:hover {
+  background-color: #343a40 !important; /* Darker color for hover */
+  border-color: #23272b; !important; /* Optional: change the border color on hover */
+}
+
+</style>
 <div class="about-area2 gray-bg pt-60 pb-60">
         <div class="container">
                 <div class="row">
@@ -23,7 +30,7 @@
                             
                                             <div class="form-group row">
                                                 <div class="col-sm-10">
-                                                    <button type="submit" class="btn btn-dark" >Submit</button>
+                                                    <button type="submit" class="btn btn-dark" style="background-color: #0073B7 !important;" >Submit</button>
                                                 </div>
                                             </div>
                                         </form>
