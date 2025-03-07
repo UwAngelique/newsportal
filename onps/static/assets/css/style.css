@@ -5,7 +5,7 @@
 
 body {
   font-family: "Open Sans", sans-serif;
-  background: #f6f9ff;
+  background: white;
   color: #444444;
 }
 
@@ -67,7 +67,7 @@ h6 {
   right: 15px;
   bottom: 15px;
   z-index: 99999;
-  background: #4154f1;
+  background: #4154f1 !important;
   width: 40px;
   height: 40px;
   border-radius: 4px;
@@ -76,18 +76,18 @@ h6 {
 
 .back-to-top i {
   font-size: 24px;
-  color: #fff;
+  color: #fff !important;
   line-height: 0;
 }
 
 .back-to-top:hover {
-  background: #6776f4;
+  background: #6776f4 !important;
   color: #fff;
 }
 
 .back-to-top.active {
-  visibility: visible;
-  opacity: 1;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 /*--------------------------------------------------------------
@@ -1082,8 +1082,8 @@ h6 {
 
 .contact .php-email-form .error-message {
   display: none;
-  color: #fff;
-  background: #ed3c0d;
+  color: #0073B7;
+  background: #0073B7 !important;
   text-align: left;
   padding: 15px;
   margin-bottom: 24px;
@@ -1223,3 +1223,8 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+.trend-top-cap h2 {
+    color: white !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+}
+
