@@ -1,4 +1,62 @@
 {% load static %}
+   <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .col-xl-3 {
+            display: inline-flex !important;
+            width:100% !important;
+            /* display: inline-block !important;*/
+              white-space: nowrap;
+        }
+
+        .col-xl-3 .date {
+            font-size: 1em;
+            margin-top:10px !important;
+        }
+        .col-xl-3 nav{
+            margin-left:800px !important;
+             margin-top:10px !important;
+            font-size: 12px !important;
+            font-weight:10 !important;
+        }
+        .col-xl-3 nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .col-xl-3 nav ul li {
+            margin-right: 20px;
+        }
+
+        .col-xl-3 nav ul li a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+        }
+        .header-social{
+           color: #000;
+            font-weight: bold;
+            display: inline-flex;
+            margin-top:10px !important;
+            font-size:12px !important;
+            gap: 10px !important;
+        }
+        .header-social i {
+          color: #000 !important;
+        }
+        .main-menu nav li:not(:last-child)::after {
+          content: "" !important;
+        }
+#navigation li:not(:last-child)::after {
+  display: none !important;
+     content: "" !important;
+}
+
+    </style>
 <header>
     <!-- Header Start -->
     <div class="header-area">
@@ -27,10 +85,27 @@
                     <div class="row d-flex align-items-center">
                         <!-- Logo -->
                         <div class="col-xl-3 col-lg-3 col-md-3 d-none d-md-block">
-                            <div class="logo">
-                                <a href="{% url 'index' %}"><h3>RealtimeTeck</h3></a>
-                            </div>
+<!--                            <div class="logo">-->
+<!--                                <a href="{% url 'index' %}"><h3>Realtimeteck</h3></a>-->
+<!--                            </div>-->
+                            <div class="date" id="currentDate" style="font-size:12px !important;"></div>
+                            <nav>
+                            <ul>
+                                <li><a href="{% url 'aboutus' %}">About Us</a></li>
+                                <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                            </ul>
+                        </nav>
+                                <!-- Heder social -->
+                                <ul class="header-social">
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                    <li> <a href="#"><i class="fab fa-youtube"></i></a></li>
+                                </ul>
+<!--                                <div>-->
                         </div>
+
                         <div class="col-xl-9 col-lg-9 col-md-9" >
                             <div class="header-banner f-right ">
                                 <img src="assets1/img/gallery/header_card.png" alt="">
@@ -52,16 +127,16 @@
                                 <nav>                  
                                     <ul id="navigation">
                                         <li><a href="{% url 'index' %}">Home</a></li>
-                                        <li><a href="{% url 'aboutus' %}">About</a></li>
+<!--                                        <li><a href="{% url 'aboutus' %}">About</a></li>-->
                                         
-                                        <li><a href="#">Category</a>
-                                            <ul class="submenu">
+<!--                                        <li><a href="#">Category</a>-->
+<!--                                            <ul class="submenu">-->
                                                 {% for cat in cat %}
                                                 <li><a href="{% url 'category_detail' id=cat.id %}">{{ cat.catname }}</a></li>{% endfor %}
                                               
-                                            </ul>
-                                        </li>
-                                        <li><a href="{% url 'contactus' %}">Contact</a></li>
+<!--                                            </ul>-->
+<!--                                        </li>-->
+<!--                                        <li><a href="{% url 'contactus' %}">Contact</a></li>-->
                                     </ul>
                                 </nav>
                             </div>
@@ -93,3 +168,22 @@
     </div>
     <!-- Header End -->
 </header>
+ <script>
+        const dateElement = document.getElementById("currentDate");
+
+        function updateDate() {
+            const now = new Date();
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            dateElement.textContent = now.toLocaleDateString('en-US', options);
+        }
+
+        // Initialize
+        window.onload = () => {
+            updateDate();
+        };
+    </script>
