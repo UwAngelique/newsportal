@@ -79,7 +79,7 @@
                                                             <img src="{{i.postimage.url}}" alt="">
                                                         </div>
                                                         <div class="whates-caption whates-caption2">
-                                                            <h4><a href="{% url 'view_single_news' i.id %}">{{i.posttitle}}</a></h4>
+                                                            <h4><a href="{% url 'view_single_news' i.id i.posttitle|slugify %}">{{i.posttitle}}</a></h4>
                                                             <span>{{i.posted_date}}</span>
                                                             <p>{{i.postdetails|slice:":300"}}.</p>
                                                         </div>

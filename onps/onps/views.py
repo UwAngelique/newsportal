@@ -13,6 +13,7 @@ from django.utils import timezone
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Count
+from django.utils.text import slugify
 User = get_user_model()
 
 def BASE(request):    
@@ -67,8 +68,13 @@ def category_detail(request, id):
     
     return render(request, 'categorywise_newsdetail.html', {'catid': catid, 'news': news})
 
-def VIEW_SINGLENEWS(request, id):
+def VIEW_SINGLENEWS(request, id,slug):
+    print(slug)
     sinnews = get_object_or_404(News, id=id)
+    correct_slug = slugify(sinnews.posttitle)
+
+    if slug != correct_slug:
+        return redirect('view_single_news', id=id, slug=correct_slug)
     recentnews = News.objects.order_by('-posted_date')[:4]
     category_counts = Category.objects.annotate(news_count=Count('news'))
     comments_list = Comments.objects.filter(news_id=sinnews, status='Approved')

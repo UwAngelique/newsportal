@@ -297,7 +297,9 @@ def ADD_POST(request):
        
 
         # Accessing the UserReg instance associated with the logged-in user
-        userregt = request.user.user_type
+        # userregt = request.user.user_type
+        user_type = request.user.user_type
+        userregt = User.objects.get(user_type=user_type)
 
         postnews = News(
             cat_id=cid,
@@ -321,7 +323,11 @@ def ADD_POST(request):
     return render(request, 'admin/add_postnews.html', context)
 
 def MANAGE_POSTS(request):
-    posts_list = News.objects.all()
+    # posts_list = News.objects.all()
+    posts_list = News.objects.select_related('postedby','updatedby').all()
+    # Debug print: print title and author's first and last name
+    for post in posts_list:
+        print(post.posttitle, post.postedby.first_name, post.postedby.last_name)
     paginator = Paginator(posts_list, 10)  # Show 10 subcategories per page
 
     page_number = request.GET.get('page')

@@ -28,7 +28,9 @@ urlpatterns = [
     path('Aboutus', views.ABOUTUS, name='aboutus'),
     path('Contactus', views.CONTACTUS, name='contactus'),
     path('category/<int:id>/', views.category_detail, name='category_detail'),
-    path('ViewSingleNews/<str:id>', views.VIEW_SINGLENEWS, name='view_single_news'),
+    # path('ViewSingleNews/<str:id>/<slug:slug>/', views.VIEW_SINGLENEWS, name='view_single_news'),
+    path('ViewSingleNews/<int:id>/<slug:slug>/', views.VIEW_SINGLENEWS, name='view_single_news'),
+
     path('thank_you', views.THANKYOU, name='thank_you'),
     path('Login', views.LOGIN, name='login'),
     path('doLogin', views.doLogin, name='doLogin'),

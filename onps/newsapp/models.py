@@ -4,6 +4,10 @@ from django.core.validators import RegexValidator
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 
+from django.conf import settings
+
+
+
 class CustomUser(AbstractUser):
     USER ={
         (1,'admin'),
@@ -34,6 +38,17 @@ class Subcategory(models.Model):
         return self.subcatname
 
 
+# class News(models.Model):
+#     cat_id = models.ForeignKey(Category, on_delete=models.CASCADE)
+#     subcategory_id = models.ForeignKey(Subcategory, on_delete=models.CASCADE)
+#     posttitle = models.TextField(blank=True)
+#     postdetails = models.TextField(blank=True)
+#     status = models.CharField(max_length=50)
+#     postimage = models.ImageField(upload_to='media/news')
+#     postedby = models.CharField(max_length=50)
+#     posted_date= models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+#     updatedby = models.CharField(max_length=50)
 class News(models.Model):
     cat_id = models.ForeignKey(Category, on_delete=models.CASCADE)
     subcategory_id = models.ForeignKey(Subcategory, on_delete=models.CASCADE)
@@ -41,11 +56,12 @@ class News(models.Model):
     postdetails = models.TextField(blank=True)
     status = models.CharField(max_length=50)
     postimage = models.ImageField(upload_to='media/news')
-    postedby = models.CharField(max_length=50)
-    posted_date= models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    updatedby = models.CharField(max_length=50)
 
+    postedby = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posted_news')
+    posted_date = models.DateTimeField(auto_now_add=True)
+
+    updated_at = models.DateTimeField(auto_now=True)
+    updatedby = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='updated_news')
 class Page(models.Model):
     pagetitle = models.CharField(max_length=250)
     address = models.CharField(max_length=250)
