@@ -24,7 +24,7 @@
 
                      </ul>
                      <p class="excert">
-                        {{sinnews.postdetails}}
+                 {{ sinnews.postdetails|linebreaks }}
                      </p>
                     
                    
@@ -120,7 +120,13 @@
                      {% for i in recentnews  %}
                      <div class="media post_item">
 
-                        <img src="{{i.postimage.url}}" alt="post" width="100" height="100">
+
+                         {% if i.postimage %}
+<!--  <img src="{{ i.postimage.url }}" alt="{{ i.posttitle }}">-->
+                         <img src="{{i.postimage.url}}" alt="post" width="100" height="100">-->
+                        {% else %}
+                          <img src="{% static 'images/default-news.jpg' %}" alt="default image">
+                        {% endif %}
                         <div class="media-body">
                            <a href="{% url 'view_single_news' i.id i.posttitle|slugify %}">
                               <h3>{{i.posttitle}}</h3>
