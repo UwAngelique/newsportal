@@ -6,6 +6,10 @@
             padding: 0;
             box-sizing: border-box;
         }
+        .main{
+            content: none !important;
+            display: inline-block !important;
+        }
         .col-xl-3 {
             display: inline-flex !important;
             width:100% !important;
@@ -51,9 +55,116 @@
         .main-menu nav li:not(:last-child)::after {
           content: "" !important;
         }
-#navigation li:not(:last-child)::after {
-  display: none !important;
-     content: "" !important;
+        .main {
+  background-color: #0073B7; /* or any color you want for the background */
+    padding: 2rem 4rem; /
+}
+
+.main nav ul#navigation {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.5rem; /* spacing between items */
+  margin: 0;
+  padding: 0;
+}
+
+.main nav ul#navigation li a {
+  color: white;
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease;
+}
+
+.main nav ul#navigation li a:hover {
+  color: #000000; /* highlight color on hover */
+  text-decoration: underline;
+}
+
+/* Responsive style: center links on small screens */
+@me
+
+/*#navigation li:not(:last-child)::after {*/
+/*  display: none !important;*/
+/*     content: "" !important;*/
+/*}*/
+/*#navigation li::before,*/
+/*#navigation li::after {*/
+/*  content: none !important;*/
+/*  display: none !important;*/
+/*}*/
+.search-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 1.2rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.search-btn:hover {
+  color: #000000; /* subtle hover color */
+}
+
+.search-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  background: #ffffff;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: none;
+  z-index: 999;
+  animation: slideDown 0.3s ease;
+}
+
+.search-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.search-submit {
+  padding: 0.5rem 1rem;
+  background: #0073B7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.search-submit:hover {
+  background: #000000;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
     </style>
@@ -123,21 +234,15 @@
                                 <a href="index.html"><img src="assets1/img/logo/logo.png" alt=""></a>
                             </div>
                             <!-- Main-menu -->
-                            <div class="main-menu d-none d-md-block">
-                                <nav>                  
-                                    <ul id="navigation">
-                                        <li><a href="{% url 'index' %}">Home</a></li>
-<!--                                        <li><a href="{% url 'aboutus' %}">About</a></li>-->
-                                        
-<!--                                        <li><a href="#">Category</a>-->
-<!--                                            <ul class="submenu">-->
-                                                {% for cat in cat %}
-                                                <li><a href="{% url 'category_detail' id=cat.id %}">{{ cat.catname }}</a></li>{% endfor %}
-                                              
-<!--                                            </ul>-->
-<!--                                        </li>-->
-<!--                                        <li><a href="{% url 'contactus' %}">Contact</a></li>-->
-                                    </ul>
+                            <div class="main">
+                                <nav>
+                                  <ul id="navigation" >
+                                    <li><a href="{% url 'index' %}">Home</a></li>
+                                    {% for cat in cat %}
+                                        <li><a href="{% url 'category_detail' id=cat.id %}">{{ cat.catname }}</a></li>
+                                    {% endfor %}
+                                </ul>
+
                                 </nav>
                             </div>
                         </div>             
@@ -152,9 +257,25 @@
 <!--                                </ul>-->
                                 <!-- Search Nav -->
 <!--                                <div class="nav-search search-switch">-->
-                                <div>
-                                    <a href="{% url 'search_news' %}"><i class="fa fa-search"></i></a>
-                                </div>
+<!--                                <div>-->
+<!--                                    <a href="{% url 'search_news' %}"><i class="fa fa-search"></i></a>-->
+<!--                                </div>-->
+                                <!-- Search Icon -->
+                    <div class="search-wrapper">
+                        <button id="searchToggle" class="search-btn">
+                            <i class="fa fa-search"></i>
+                        </button>
+
+                        <!-- Dropdown search -->
+                        <div id="searchDropdown" class="search-dropdown">
+                            <form action="{% url 'search_news' %}" method="get" class="search-form">
+                                <input type="text" name="s" placeholder="Search…" class="search-input" />
+                                <button type="submit" class="search-submit">Search</button>
+                            </form>
+                        </div>
+                    </div>
+
+
                             </div>
                         </div>
                         <!-- Mobile Menu -->
@@ -169,21 +290,38 @@
     <!-- Header End -->
 </header>
  <script>
-        const dateElement = document.getElementById("currentDate");
+     const dateElement = document.getElementById("currentDate");
 
-        function updateDate() {
-            const now = new Date();
-            const options = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            };
-            dateElement.textContent = now.toLocaleDateString('en-US', options);
-        }
+     function updateDate() {
+         const now = new Date();
+         const options = {
+             weekday: 'long',
+             year: 'numeric',
+             month: 'long',
+             day: 'numeric'
+         };
+         dateElement.textContent = now.toLocaleDateString('en-US', options);
+     }
 
-        // Initialize
-        window.onload = () => {
-            updateDate();
-        };
-    </script>
+     // Initialize
+     window.onload = () => {
+         updateDate();
+     };
+
+         const searchToggle = document.getElementById('searchToggle');
+         const searchDropdown = document.getElementById('searchDropdown');
+
+         searchToggle.addEventListener('click', (e) => {
+         e.preventDefault();
+         searchDropdown.style.display = searchDropdown.style.display === 'block' ? 'none' : 'block';
+     });
+
+         document.addEventListener('click', (e) => {
+         if (!e.target.closest('.search-wrapper')) {
+         searchDropdown.style.display = 'none';
+     }
+     });
+
+
+
+</script>
